@@ -7,12 +7,16 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Snog.PostProcessingManager.Editor; // Add this at the top
 
 public static class ForceEnableAllVolumeOverrides
 {
+    private static readonly string[] requiredTypeNames = PostProcessOverrideConfig.RequiredTypeNames;
+    
     [MenuItem("Snog/PostProcessManager/Volumes/Enable All Override Settings For Selected Volume")]
     public static void ForceEnableForSelectedVolume()
     {
+
         var go = Selection.activeGameObject;
         if (go == null) { Debug.LogWarning("Select a GameObject with a Volume."); return; }
         var vol = go.GetComponent<Volume>();
@@ -40,23 +44,9 @@ public static class ForceEnableAllVolumeOverrides
         if (componentsList == null)
         {
             // If components list isn't accessible, attempt to call common TryGet<T> to locate components
-            Debug.Log("VolumeProfile.components not accessible. We will try to enable using TryGet<T> for common types.");
+            Debug.Log("VolumeProfile.components not accessible. We will try to enable using TryGet<T> for common types.");\
 
-            var commonTypeNames = new string[]
-            {
-                "UnityEngine.Rendering.Universal.ColorAdjustments",
-                "UnityEngine.Rendering.Universal.Tonemapping",
-                "UnityEngine.Rendering.Universal.Bloom",
-                "UnityEngine.Rendering.Universal.MotionBlur",
-                "UnityEngine.Rendering.Universal.Vignette",
-                "UnityEngine.Rendering.Universal.DepthOfField",
-                "UnityEngine.Rendering.Universal.ChromaticAberration",
-                "UnityEngine.Rendering.Universal.LensDistortion",
-                "UnityEngine.Rendering.Universal.FilmGrain",
-                "UnityEngine.Rendering.Universal.PaniniProjection"
-            };
-
-            foreach (var tn in commonTypeNames)
+            foreach (var tn in requiredTypeNames)
             {
                 var t = FindTypeByName(tn);
                 if (t == null) continue;

@@ -11,6 +11,8 @@ using UnityEngine.Rendering;
 [InitializeOnLoad]
 public static class AutoAddVolumeOverrides
 {
+    private static readonly string[] requiredTypeNames = PostProcessOverrideConfig.RequiredTypeNames;
+    
     // Toggle in EditorPrefs if you want to disable it
     private const string kPrefKey = "Snog.AutoAddVolumeOverrides.Enabled";
     static AutoAddVolumeOverrides()
@@ -34,22 +36,6 @@ public static class AutoAddVolumeOverrides
 
         EnsureVolumeHasOverrides(vol);
     }
-
-    // Types to ensure on the profile (full type names, URP namespace)
-    // You can add or remove full names here if you want different overrides
-    private static readonly string[] requiredTypeNames = new[]
-    {
-        "UnityEngine.Rendering.Universal.ColorAdjustments",
-        "UnityEngine.Rendering.Universal.Tonemapping",
-        "UnityEngine.Rendering.Universal.Bloom",
-        "UnityEngine.Rendering.Universal.MotionBlur",
-        "UnityEngine.Rendering.Universal.Vignette",
-        "UnityEngine.Rendering.Universal.DepthOfField",
-        "UnityEngine.Rendering.Universal.ChromaticAberration",
-        "UnityEngine.Rendering.Universal.LensDistortion",
-        "UnityEngine.Rendering.Universal.FilmGrain",
-        "UnityEngine.Rendering.Universal.PaniniProjection"
-    };
 
     private static void EnsureVolumeHasOverrides(Volume vol)
     {

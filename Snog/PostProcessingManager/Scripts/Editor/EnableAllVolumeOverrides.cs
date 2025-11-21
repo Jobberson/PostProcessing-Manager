@@ -11,6 +11,8 @@ using UnityEngine.Rendering;
 
 public static class EnableAllVolumeOverrides
 {
+     private static readonly string[] requiredTypeNames = PostProcessOverrideConfig.RequiredTypeNames;
+
     [MenuItem("Snog/PostProcessManager/Volumes/Ensure Overrides For Selected Volume")]
     public static void EnsureOverridesForSelectedVolume()
     {
@@ -36,22 +38,6 @@ public static class EnableAllVolumeOverrides
         vol.profile = profile;
         EditorUtility.SetDirty(vol);
     }
-
-    // the list of override types you want to ensure (add or enable)
-    private static readonly string[] requiredTypeNames = new[]
-    {
-        "UnityEngine.Rendering.Universal.ColorAdjustments",
-        "UnityEngine.Rendering.Universal.Tonemapping",
-        "UnityEngine.Rendering.Universal.Bloom",
-        "UnityEngine.Rendering.Universal.MotionBlur",
-        "UnityEngine.Rendering.Universal.Vignette",
-        "UnityEngine.Rendering.Universal.DepthOfField",
-        "UnityEngine.Rendering.Universal.ChromaticAberration",
-        "UnityEngine.Rendering.Universal.LensDistortion",
-        "UnityEngine.Rendering.Universal.FilmGrain",
-        "UnityEngine.Rendering.Universal.PaniniProjection"
-        // add more as needed
-    };
 
     public static void EnsureOverridesOnProfile(VolumeProfile profile, string scenePathForLog = null)
     {
