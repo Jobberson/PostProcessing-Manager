@@ -14,7 +14,7 @@ public partial class PostProcessManager : Singleton<PostProcessManager>
 {
     [Header("Target Volume")]
     [Tooltip("Assign your global Volume (or a local one you want to control)")]
-    [SerializeField] private Volume targetVolume;
+    public Volume targetVolume;
 
     // Cached references
     private ColorAdjustments colorAdjustments;
@@ -419,6 +419,21 @@ public partial class PostProcessManager : Singleton<PostProcessManager>
     #endregion
 
     #region Utilities
+    // --- Added: Undo-friendly API for editor use ---
+    // Place this method inside the PostProcessManager class body.
+    public void ApplyPresetWithUndo(PostProcessPreset preset, string undoMessage = "Apply PostProcess Preset")
+    {
+    #if UNITY_EDITOR
+        UnityEditor.Undo.RecordObject(this, undoMessage);
+    #endif
+        // Call your existing apply method - expected to exist in runtime
+        ApplyPreset(preset);
+
+    #if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+    #endif
+    }
+
     private bool EnsureCached<T>(ref T comp) where T : VolumeComponent
     {
         // already cached

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7af433f5ffc414aaf88b39f6af2fb6, type: 3}
-  m_Name: PostProcessPreset
+  m_Name: NewPostProcessPreset
   m_EditorClassIdentifier: 
   useColorAdjustments: 1
-  colorTint: {r: 1, g: 0, b: 0, a: 1}
+  colorTint: {r: 1, g: 1, b: 1, a: 1}
   saturation: 0
   useBloom: 0
   bloomIntensity: 1
   bloomThreshold: 1
   useVignette: 1
-  vignetteIntensity: 1
+  vignetteIntensity: 0.135
   useChromatic: 0
-  chromaticIntensity: 0.886
+  chromaticIntensity: 0.1
   useFilmGrain: 0
   filmGrainIntensity: 0.1
   useLensDistortion: 0
